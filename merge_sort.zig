@@ -11,39 +11,45 @@ pub fn printNumbers(nums: []const u8) void {
     print(" ]\n", .{});
 }
 
-pub fn mergeSort(nums: []u8, start: u8, end: u8) void {
-    if (end - start == 1)
-        return;
+pub fn mergeSort(input: []u8) []u8 {
+    var nums:[]u8 = undefined;
+    std.mem.copy(u8, nums[0..input.len], input);
 
-    const mid = (end + start) / 2;
+    if (nums.len == 1)
+        return nums;
 
-    mergeSort(nums, start, mid);
-    mergeSort(nums, mid, end);
+    const mid = input.len / 2;
+
+    const left_half = mergeSort(input[0..mid]);
+    const right_half = mergeSort(input[mid..]);
+    _ = left_half;
+    _ = right_half;
 
     // print("start={}, end={}, mid={}\n", .{ start, end, mid });
 
-    var i = start;
-    var j = mid;
+    // var i = 0;
+    // var j = 0;
 
-    while (i < mid and j < end) {
-        if (nums[i] > nums[j]) {
-            // print("\n", .{});
-            // printNumbers(nums);
-            // print("swapping nums[i={}] <==> nums[j={}] = {} <==> {}\n", .{ i, j, nums[i], nums[j] });
-
-            const temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
-
-            // printNumbers(nums);
-            // print("\n", .{});
-
-            i += 1;
-        }else {
-            i += 1;
-            j += 1;
-        }
-    }
+    // while (i < mid and j < end) {
+    //     if (nums[i] > nums[j]) {
+    //         // print("\n", .{});
+    //         // printNumbers(nums);
+    //         // print("swapping nums[i={}] <==> nums[j={}] = {} <==> {}\n", .{ i, j, nums[i], nums[j] });
+    //
+    //         const temp = nums[i];
+    //         nums[i] = nums[j];
+    //         nums[j] = temp;
+    //
+    //         // printNumbers(nums);
+    //         // print("\n", .{});
+    //
+    //         i += 1;
+    //     }else {
+    //         i += 1;
+    //         j += 1;
+    //     }
+    // }
+    return nums;
 }
 
 pub fn main() void {
@@ -56,12 +62,13 @@ pub fn main() void {
     // printNumbers(&nums3);
 
     // mergeSort(&nums1, 0, nums1.len);
-    mergeSort(&nums2, 0, nums2.len);
+    print("After: ", .{});
+    printNumbers(mergeSort(&nums2));
     // mergeSort(&nums3, 0, nums3.len);
 
-    print("After: ", .{});
+    // print("After: ", .{});
     // printNumbers(&nums1);
-    printNumbers(&nums2);
+    // printNumbers(&nums2);
     // printNumbers(&nums3);
 }
 
