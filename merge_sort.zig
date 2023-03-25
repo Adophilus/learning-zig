@@ -25,54 +25,41 @@ pub fn mergeSort(input: []u8) []u8 {
     _ = left_half;
     _ = right_half;
 
-    // print("start={}, end={}, mid={}\n", .{ start, end, mid });
+    var j = mid;
+    var k = start;
 
-    // var i = 0;
-    // var j = 0;
-
-    // while (i < mid and j < end) {
-    //     if (nums[i] > nums[j]) {
-    //         // print("\n", .{});
-    //         // printNumbers(nums);
-    //         // print("swapping nums[i={}] <==> nums[j={}] = {} <==> {}\n", .{ i, j, nums[i], nums[j] });
-    //
-    //         const temp = nums[i];
-    //         nums[i] = nums[j];
-    //         nums[j] = temp;
-    //
-    //         // printNumbers(nums);
-    //         // print("\n", .{});
-    //
-    //         i += 1;
-    //     }else {
-    //         i += 1;
-    //         j += 1;
-    //     }
-    // }
-    return nums;
+    while (j < end) {
+        if (nums[k] < nums[j]) {
+            k += 1;
+        } else {
+            const temp = nums[j];
+            var i = j;
+            while (i > k) {
+                nums[i] = nums[i - 1];
+                i -= 1;
+            }
+            nums[k] = temp;
+            k += 1;
+            j += 1;
+        }
+    }
 }
 
 pub fn main() void {
-    // var nums1 = [_]u8{ 3, 2, 7, 1, 0, 9, 10, 14 };
-    var nums2 = [_]u8{ 5, 3, 6, 2, 7, 26 ,3, 67, 34, 246, 73, 21 };
-    // var nums3 = [_]u8{ 34, 52, 13, 52, 14, 63, 54, 43, 234, 25 };
-    print("Before: ", .{});
-    // printNumbers(&nums1);
+    var nums1 = [_]u8{ 3, 2, 7, 1, 0, 9, 10, 14 };
+    var nums2 = [_]u8{ 5, 3, 6, 2, 7, 26, 3, 67, 34, 246, 73, 21 };
+    var nums3 = [_]u8{ 34, 52, 13, 52, 14, 63, 54, 43, 234, 25 };
+    print("Before:\n", .{});
+    printNumbers(&nums1);
     printNumbers(&nums2);
-    // printNumbers(&nums3);
+    printNumbers(&nums3);
 
-    // mergeSort(&nums1, 0, nums1.len);
-    print("After: ", .{});
-    printNumbers(mergeSort(&nums2));
-    // mergeSort(&nums3, 0, nums3.len);
+    mergeSort(&nums1, 0, nums1.len);
+    mergeSort(&nums2, 0, nums2.len);
+    mergeSort(&nums3, 0, nums3.len);
 
-    // print("After: ", .{});
-    // printNumbers(&nums1);
-    // printNumbers(&nums2);
-    // printNumbers(&nums3);
+    print("After:\n", .{});
+    printNumbers(&nums1);
+    printNumbers(&nums2);
+    printNumbers(&nums3);
 }
-
-// test "merge sort implementation" {
-//     @assert()
-//
-// }
